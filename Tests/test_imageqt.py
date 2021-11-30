@@ -45,7 +45,10 @@ def test_image():
     for mode in ("1", "RGB", "RGBA", "L", "P"):
         ImageQt.ImageQt(hopper(mode))
     if ImageQt.qt_is_installed:
-        qt_format = ImageQt.QImage.Format if ImageQt.qt_version == "6" else ImageQt.QImage
+        if ImageQt.qt_version == "6":
+            qt_format = ImageQt.QImage.Format
+        else:
+            qt_format = ImageQt.QImage
         if hasattr(qt_format, "Format_Grayscale16"):  # Qt 5.13+
             ImageQt.ImageQt(hopper("I;16"))
 
